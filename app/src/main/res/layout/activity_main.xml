@@ -5,61 +5,109 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/coordinator">
+    android:id="@+id/coordinator"
+    tools:context=".MainActivity">
+
+    <!-- Main Constraint Layout -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/main"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".MainActivity">
+        android:layout_height="match_parent">
 
+        <!-- Header Section -->
         <LinearLayout
-            android:id="@+id/linearLayout"
-            android:layout_width="wrap_content"
+            android:id="@+id/headerLayout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.105"
-            app:layout_constraintStart_toStartOf="parent"
+            android:padding="16dp"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.037">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Total Balance : "
-                android:textStyle="bold" />
+                android:text="Total Balance :"
+                android:textStyle="bold"
+                android:textAppearance="?attr/textAppearanceHeadline6" />
 
             <TextView
                 android:id="@+id/balance"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="10000"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:textAppearance="?attr/textAppearanceHeadline4" />
         </LinearLayout>
 
+        <!-- Filter Buttons Section -->
+        <LinearLayout
+            android:id="@+id/filterButtonsLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_margin="16dp"
+            app:layout_constraintTop_toBottomOf="@id/headerLayout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <Button
+                android:id="@+id/buttonAll"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="All"
+                android:textStyle="bold"
+
+                android:backgroundTint="@color/primary"
+                android:textColor="@android:color/white" />
+
+            <Button
+                android:id="@+id/buttonSent"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Sent"
+                android:textStyle="bold"
+                android:backgroundTint="@color/red"
+                android:textColor="@android:color/white" />
+
+            <Button
+                android:id="@+id/buttonReceive"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Receive"
+                android:textStyle="bold"
+                android:backgroundTint="@color/secondaryVariant"
+                android:textColor="@android:color/white" />
+        </LinearLayout>
+
+        <!-- Card Section for Budget and Spends -->
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/display"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.18"
+            android:layout_margin="16dp"
+            app:layout_constraintTop_toBottomOf="@id/filterButtonsLayout"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-            app:layout_constraintVertical_bias="0.036">
+            app:layout_constraintEnd_toEndOf="parent"
+            app:cardElevation="4dp"
+            app:cardCornerRadius="8dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="16dp">
 
+                <!-- Budget Section -->
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.5"
+                    android:layout_weight="1"
                     android:gravity="center"
                     android:orientation="vertical">
 
@@ -67,21 +115,24 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Budget"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:textAppearance="?attr/textAppearanceBody1" />
 
                     <TextView
                         android:id="@+id/budget"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/green"
+                        android:text="5000"
                         android:textStyle="bold"
-                        android:text="5000" />
+                        android:textColor="#045959"
+                        android:textAppearance="?attr/textAppearanceHeadline5" />
                 </LinearLayout>
 
+                <!-- Spends Section -->
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.5"
+                    android:layout_weight="1"
                     android:gravity="center"
                     android:orientation="vertical">
 
@@ -89,59 +140,57 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Spends"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:textAppearance="?attr/textAppearanceBody1" />
 
                     <TextView
                         android:id="@+id/spends"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/red"
+                        android:text="5000"
                         android:textStyle="bold"
-                        android:text="5000" />
+                        android:textColor="@color/red"
+                        android:textAppearance="?attr/textAppearanceHeadline5" />
                 </LinearLayout>
-
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
+        <!-- Transaction Section -->
         <TextView
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Transaction"
+            android:text="Transactions"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.098"
-            app:layout_constraintStart_toStartOf="parent"
+            android:textAppearance="?attr/textAppearanceSubtitle1"
+            android:layout_marginStart="16dp"
             app:layout_constraintTop_toBottomOf="@+id/display"
-            app:layout_constraintVertical_bias="0.042" />
+            app:layout_constraintStart_toStartOf="parent" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/transaction"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_margin="10dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.115"
-            app:layout_constraintStart_toStartOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_margin="16dp"
+            android:clipToPadding="false"
+            android:paddingBottom="72dp"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
             app:layout_constraintTop_toBottomOf="@+id/textView"
-            app:layout_constraintVertical_bias="0.032" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/addBtn" />
 
+        <!-- Floating Action Button -->
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/addBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/green"
-            android:src="@drawable/baseline_add_circle_outline_24"
+            android:layout_margin="16dp"
+            android:contentDescription="Add Transaction"
+            android:tint="@android:color/white"
+            app:backgroundTint="@color/primary"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.943"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.961"
-            tools:ignore="MissingConstraints" />
-
-
+            app:srcCompat="@drawable/baseline_add_circle_outline_24" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

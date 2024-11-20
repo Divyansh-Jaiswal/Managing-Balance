@@ -19,4 +19,11 @@ interface TransactionDao {
 
     @Update
     fun update(vararg transaction: Transaction)
+
+    @Query("SELECT * FROM transactions WHERE amount>0")
+
+    fun getPositiveAmount(): List<Transaction>
+
+    @Query("SELECT * FROM transactions WHERE amount<0")
+    fun getNegativeAmount(): List<Transaction>
 }

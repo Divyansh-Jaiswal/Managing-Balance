@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.MotionEvent
 import android.view.View
+import android.widget.Button
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -30,6 +31,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var spent:TextView
     private lateinit var balance: TextView
     private lateinit var db:AppDatabase
+    private lateinit var all:Button
+    private lateinit var sent:Button
+    private lateinit var receive:Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,6 +42,9 @@ class MainActivity : AppCompatActivity() {
         BUDGET=findViewById(R.id.budget)
         spent=findViewById(R.id.spends)
         balance=findViewById(R.id.balance)
+        all=findViewById(R.id.buttonAll)
+        sent=findViewById(R.id.buttonSent)
+        receive=findViewById(R.id.buttonReceive)
 
         recyclerview = findViewById(R.id.transaction)
         var xDelta = 0f
@@ -45,6 +52,15 @@ class MainActivity : AppCompatActivity() {
         val fab = findViewById<FloatingActionButton>(R.id.addBtn)
 
 
+        all.setOnClickListener{
+            fetchAll()
+        }
+        sent.setOnClickListener{
+            fetchDataByNegativeAmount()
+        }
+        receive.setOnClickListener{
+            fetchDataByPositiveAmount()
+        }
         fab.setOnTouchListener { view, event ->
             when (event.action) {
                 MotionEvent.ACTION_DOWN -> {
@@ -166,6 +182,25 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
+    private fun fetchDataByPositiveAmount(){
+        GlobalScope.launch {
+            transactions=db.transactionDao().getPositiveAmount()
+            runOnUiThread {
+                transactionAdapter.setData(transactions)
+            }
+        }
+    }
+
+    private fun fetchDataByNegativeAmount(){
+        GlobalScope.launch {
+            transactions=db.transactionDao().getNegativeAmount()
+            runOnUiThread {
+                transactionAdapter.setData(transactions)
+            }
+        }
+    }
+
 
 
 
